@@ -8,7 +8,7 @@ export type Framework = {
   label: string
 }
 
-export async function getDb() {
+(async () => {
   if (!db) {
     db = await open({
       filename: './dev.db',
@@ -17,6 +17,13 @@ export async function getDb() {
 
     await db.run('PRAGMA journal_mode = WAL')
     await db.run('PRAGMA synchronous = 1')
+
+    if (process.env.NODE_ENV === 'development') {
+      sqlite3.verbose()
+      db.on('trace', (sql: string) => {
+        console.log('Executing SQL:', sql)
+      });
+    }
 
     try {
       await db.exec(`
@@ -33,7 +40,7 @@ export async function getDb() {
   }
 
   return db
-}
+})()
 
 export async function closeDatabase() {
   console.log('Closing database connection...')
@@ -49,20 +56,9 @@ export async function closeDatabase() {
 process.on('SIGINT', closeDatabase)
 process.on('SIGTERM', closeDatabase)
 
-export async function fetchFrameworks(
-  searchTerm: string
-): Promise<Framework[]> {
-  const db = await getDb()
-
-  const rows = await db.all(
+export async function fetchFrameworks(searchTerm: string): Promise<Framework[]> {
+  return db ? db.all<Framework[]>(
     'SELECT value, label FROM frameworks WHERE LOWER(label) LIKE LOWER(?) ORDER by label',
     `%${searchTerm}%`
-  )
-
-  const frameworks: Framework[] = rows.map((row) => ({
-    value: row.value,
-    label: row.label,
-  }))
-
-  return frameworks
+  ) : []
 }
