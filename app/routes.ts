@@ -3,5 +3,5 @@ import { index, route } from '@react-router/dev/routes'
 
 export const routes: RouteConfig = [
   index('routes/home.tsx'),
-  route('/frameworks', 'routes/frameworks.tsx'),
+  route('/frameworks', './routes/frameworks.tsx'),
 ]

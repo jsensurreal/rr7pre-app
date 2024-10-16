@@ -1,5 +1,5 @@
 import sqlite3 from 'sqlite3'
-import { open, Database } from 'sqlite' // A wrapper around sqlite3 for promises
+import { open, Database } from 'sqlite'
 
 let db: Database | null = null
 
@@ -8,15 +8,13 @@ export type Framework = {
   label: string
 }
 
-// Initialize and configure the database (async because sqlite3 is async)
-export async function initializeDatabase() {
+export async function getDb() {
   if (!db) {
     db = await open({
       filename: './dev.db',
       driver: sqlite3.Database,
     })
 
-    // Set journal_mode to WAL
     await db.run('PRAGMA journal_mode = WAL')
     await db.run('PRAGMA synchronous = 1')
 
@@ -30,14 +28,13 @@ export async function initializeDatabase() {
       `)
     } catch (error) {
       console.error('Error executing SQL:', error)
-      throw error // Re-throw the error after logging it
+      throw error
     }
   }
 
   return db
 }
 
-// Close the database connection
 export async function closeDatabase() {
   console.log('Closing database connection...')
   if (db) {
@@ -48,16 +45,15 @@ export async function closeDatabase() {
 }
 
 // Register process event listeners for cleanup
+// TODO: Doesn't seem to get triggered when killing process
 process.on('SIGINT', closeDatabase)
 process.on('SIGTERM', closeDatabase)
 
-// Fetch frameworks asynchronously
 export async function fetchFrameworks(
   searchTerm: string
 ): Promise<Framework[]> {
-  const db = await initializeDatabase()
+  const db = await getDb()
 
-  // Run the SQL query using async/await
   const rows = await db.all(
     'SELECT value, label FROM frameworks WHERE LOWER(label) LIKE LOWER(?) ORDER by label',
     `%${searchTerm}%`
