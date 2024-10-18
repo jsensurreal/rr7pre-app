@@ -1,3 +1,5 @@
+// This is not a valid component, but a collection of examples on how to use the fetcher.
+
 import { useRef } from 'react'
 import { FetcherWithComponents, Form, useFetcher } from 'react-router'
 

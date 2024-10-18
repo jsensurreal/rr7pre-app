@@ -8,6 +8,12 @@ export type Framework = {
   label: string
 }
 
+export type User = {
+  id: number
+  name: string
+  email: string
+}
+
 (async () => {
   if (!db) {
     db = await open({
@@ -59,6 +65,13 @@ process.on('SIGTERM', closeDatabase)
 export async function fetchFrameworks(searchTerm: string): Promise<Framework[]> {
   return db ? db.all<Framework[]>(
     'SELECT value, label FROM frameworks WHERE LOWER(label) LIKE LOWER(?) ORDER by label',
+    `%${searchTerm}%`
+  ) : []
+}
+
+export async function getUsers(searchTerm: string): Promise<User[]> {
+  return db ? db.all<User[]>(
+    'SELECT id, name, email FROM users WHERE LOWER(name) LIKE LOWER(?) ORDER by name',
     `%${searchTerm}%`
   ) : []
 }

@@ -3,8 +3,7 @@ import { index, layout, prefix, route } from '@react-router/dev/routes'
 
 export const routes: RouteConfig = [
   index('routes/home.tsx'),
-  route('/frameworks', './routes/frameworks.tsx'),
-  route('/template', './routes/template.tsx'),
+  route('/users', './routes/users.tsx'),
 
   /* Example routes
 
