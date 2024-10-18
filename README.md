@@ -55,8 +55,12 @@ See users.tsx for an example of a loader(GET)/action(POST) route for searching u
 
 URL path is http://localhost:5173/users
 
-URL search uses the search= param, http://localhost:5173/users?search=art
+URL search (GET) uses the search= param, http://localhost:5173/users?search=art and is handled by the loader function.
+
+Form search (POST) is handled by the action function.
 
 ## Database
 
 A SQLite database (dev.db) is configured for data persistence. See /app/services/sqliteService.ts.
+
+A users table exist with 100 mock users, schema { id, name, email }.
