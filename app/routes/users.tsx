@@ -34,7 +34,7 @@ export default function Frameworks({
       { (search || initialSearch) && <p className='font-bold italic underline py-2'>Searching for: {search !== undefined ? search : initialSearch}</p> }
       <ul>
         {(users ? users : initialUsers).map((user) => (
-          <li key={user.id}>{user.name}</li>
+          <li key={user.id}>{user.name} - {user.email}</li>
         ))}
       </ul>
     </Form>
