@@ -28,7 +28,7 @@ export default function Frameworks({
     <Form method='post' className='p-6'>
       <h1 className='text-2xl font-bold'>Search users</h1>
       <div className='flex gap-2 py-2'>
-        <input type='text' name='search' />
+        <input type='text' name='search' className='border border-gray-500' />
         <button type='submit' className='border border-gray-500 px-2 py-1 hover:bg-white hover:text-gray-700'>Search</button>
       </div>
       { (search || initialSearch) && <p className='font-bold italic underline py-2'>Searching for: {search !== undefined ? search : initialSearch}</p> }
