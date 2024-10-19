@@ -4,6 +4,10 @@ import { index, layout, prefix, route } from '@react-router/dev/routes'
 export const routes: RouteConfig = [
   index('routes/home.tsx'),
   route('/users', './routes/users.tsx'),
+  route('/motion', './routes/motion.tsx'),
+  ...prefix('api', [
+  route('/users', './routes/api/api.v1.users.tsx'),
+  ]),
 
   /* Example routes
 

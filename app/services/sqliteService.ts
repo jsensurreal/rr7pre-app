@@ -23,12 +23,14 @@ export type User = {
 
     await db.run('PRAGMA journal_mode = WAL')
     await db.run('PRAGMA synchronous = 1')
+    await db.run('PRAGMA cache_size = 10000')
+    await db.run('PRAGMA synchronous = NORMAL')
 
     if (process.env.NODE_ENV === 'development') {
-      sqlite3.verbose()
+      /*sqlite3.verbose()
       db.on('trace', (sql: string) => {
         console.log('Executing SQL:', sql)
-      });
+      });*/
     }
 
     try {
