@@ -25,7 +25,7 @@ const gridSquareVariants = {
 
 export default function Motion() {
   return (
-    <div className='flex flex-col gap-10 overflow-x-hidden p-20'>
+    <div className='flex flex-col gap-10 overflow-x-hidden'>
       <motion.section 
         variants={gridContainerVariants}
           initial='hidden'
@@ -44,7 +44,7 @@ export default function Motion() {
           ></motion.div>
         </motion.div>
         <motion.div variants={gridSquareVariants} className='bg-slate-800 aspect-square rounded-lg flex'>
-            <motion.div className='h-full shadow-md'
+            <motion.div className='h-full shadow-md rounded-l-lg'
               initial={{ width: '10%', backgroundColor: '#fb7185' }}
               whileHover={{ width: '40%', backgroundColor: '#ffffff' }}
               transition={{ duration: .3 }}
