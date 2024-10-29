@@ -1,5 +1,5 @@
 // provides type safety/inference
-import { getUsers, User } from '~/services/sqliteService'
+import { getUsers } from '~/services/sqliteService'
 import type * as Route from './+types.users'
 import { Form } from 'react-router'
 
@@ -17,7 +17,7 @@ export async function action({ request }: Route.ActionArgs) {
   return { search, users }
 }
 
-export default function Frameworks({
+export default function Users({
   loaderData,
   actionData,
 }: Route.ComponentProps) {
