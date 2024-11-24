@@ -17,7 +17,7 @@ export type User = {
 (async () => {
   if (!db) {
     db = await open({
-      filename: './dev.db',
+      filename: process.env.SQLITE_DB_FILENAME || './dev.db',
       driver: sqlite3.Database,
     })
 
